@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    // Initialize strings
+    char str1[50] = "Hello";            // Enough space for combining
+    char str2[60] = "What's up!!";
+    char str3[50];                      // To hold the copied string
+    char str4[] = "Mahesh is here.";    // String for comparison
+
+    // 1. Calculate length of str1
+    int length1 = strlen(str1);
+    printf("Length of \"%s\" is: %d\n", str1, length1);
+    
+    // 2. Combine str1 and str2
+    strcat(str1, " ");                   // Add space for readability
+    strcat(str1, str2);                  // Combine str2 into str1
+    printf("Combined string: \"%s\"\n", str1);
+
+    // 3. Copy str1 into str3
+    strcpy(str3, str1);                  // Copying combined string into str3
+    printf("Copied string: \"%s\"\n", str3);
+
+    // 4. Compare combined str1 with str4
+    int result = strcmp(str1, str4);
+    if (result == 0) {
+        printf("\"%s\" is equal to \"%s\"\n", str1, str4);
+    } else if (result < 0) {
+        printf("\"%s\" is less than \"%s\"\n", str1, str4);
+    } else {
+        printf("\"%s\" is greater than \"%s\"\n", str1, str4);
+    }
+
+    return 0;
+}

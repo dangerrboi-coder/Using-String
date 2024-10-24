@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+#define MAX_OTP_LENGTH 4
+#define INPUT_MAX_LENGTH (MAX_OTP_LENGTH + 1)
+
+void displayMenu() {
+    printf("\n***** OTP GENERATOR *****\n");
+    printf("Enter Your Phone Number: ");
+}
+
+void create_otp(char *otp) {
+    const char letters[] = "0123456789";
+    int num_letters = strlen(letters);
+
+    for (int j = 0; j < MAX_OTP_LENGTH; j++) {
+        otp[j] = letters[rand() % num_letters];
+    }
+    otp[MAX_OTP_LENGTH] = '\0';
+}
+
+int main() {
+    srand(time(NULL));
+    char otp[MAX_OTP_LENGTH + 1];  
+    char answer[INPUT_MAX_LENGTH];
+    char phone_number[11];
+
+    displayMenu();
+    fgets(phone_number, sizeof(phone_number), stdin);
+    phone_number[strcspn(phone_number, "\n")] = 0; 
+
+    create_otp(otp);
+    printf("OTP: %s\n", otp); 
+
+    char msg[INPUT_MAX_LENGTH + 50]; 
+    snprintf(msg, sizeof(msg), "Enter the OTP (%d digits): ", MAX_OTP_LENGTH);
+    printf("%s", msg);
+
+    fgets(answer, sizeof(answer), stdin);
+    answer[strcspn(answer, "\n")] = 0;
+
+    if (strlen(answer) != MAX_OTP_LENGTH) {
+        printf("Failed: Please enter %d digits OTP.\n", MAX_OTP_LENGTH);
+    } else {
+        if (strcmp(otp, answer) == 0) {
+            printf("Login Successful.\n");
+            printf("Welcome! Your phone number is registered", phone_number);
+        } else {
+            printf("OTP does not match.\n");
+        }
+    }
+
+    return 0;
+}
